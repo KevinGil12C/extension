@@ -52,51 +52,14 @@ def descarga_mp4():
 
     try:
         video = YouTube(url)
-        
-        # Obtener todos los streams disponibles ordenados por resolución
-        streams = video.streams.filter(progressive=True, file_extension='mp4').order_by('resolution').desc()
-        
-        # Elegir el mejor stream disponible (el primero en la lista)
-        if streams:
-            mejor_stream = streams.first()
-            if mejor_stream:
-                descarga = mejor_stream.download(parent_dirV)
-                mensaje = "Descargado en la mejor calidad posible"
-                logging.info(f"Descarga MP4 completada en {mejor_stream.resolution}")
-            else:
-                mensaje = "No se encontró un stream disponible para descargar"
-                logging.warning("No se encontró un stream disponible para la URL proporcionada")
-        else:
-            mensaje = "No se encontraron streams MP4 disponibles para la URL proporcionada"
-            logging.warning("No se encontraron streams MP4 disponibles para la URL proporcionada")
-            
+        descarga = video.streams.get_highest_resolution().download(parent_dirV)
+        mensaje = "Descargado"
+        logging.info("Descarga MP4 completada")
     except Exception as e:
         mensaje = f"Error: {str(e)}"
         logging.error(f"Error en descarga MP4: {mensaje}")
 
     return jsonify({"message": mensaje})
-def descarga_mp4():
-    data = request.json
-    url = data.get('url')
-
-    try:
-        video = YouTube(url)
-        stream = video.streams.get_highest_resolution()
-        
-        if stream:
-            descarga = stream.download(parent_dirV)
-            mensaje = "Descargado"
-            logging.info("Descarga MP4 completada en la mejor resolución disponible")
-        else:
-            mensaje = "No se encontró un stream disponible para descargar"
-            logging.warning("No se encontró un stream disponible para la URL proporcionada")
-            
-    except Exception as e:
-        mensaje = f"Error: {str(e)}"
-        logging.error(f"Error en descarga MP4: {mensaje}")
-
-    return jsonify({"message": mensaje})
-
 
 if __name__ == '__main__':
     app.run(debug=True, port=8000)
