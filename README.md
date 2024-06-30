@@ -12,9 +12,12 @@ Este proyecto es una aplicación web desarrollada en Python utilizando Flask par
 Para ejecutar este proyecto localmente, necesitarás tener instalado Python y algunas bibliotecas de Python. Puedes instalar las dependencias usando pip:
 
 ```
-py -m pip install Flask Flask-Cors pytube moviepy
+py -m pip install Flask Flask-Cors pytube moviepy youtube-dl
 ```
-
+Instalar ffmpeg
+```
+winget install "FFmpeg (Essentials Build)"
+```
 
 Asegúrate de tener permisos para escribir en las carpetas de música y videos especificadas en el código.
 
@@ -47,9 +50,6 @@ Una vez que el servidor esté en funcionamiento, puedes enviar solicitudes POST 
 
 ### Descargar en MP3 o MP4
 ![alt text](image.png)
-
-###Descargar ffmpeg
-winget install "FFmpeg (Essentials Build)"
 
 ## Contribuciones
 
