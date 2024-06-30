@@ -3,6 +3,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from pytube import YouTube
 from moviepy.editor import AudioFileClip
+import yt_dlp as youtube_dl
 import logging
 
 # Configuración del logging
@@ -50,9 +51,15 @@ def descarga_mp4():
     data = request.json
     url = data.get('url')
 
+    ydl_opts = {
+        'format': 'bestvideo+bestaudio/best',
+        'outtmpl': os.path.join(parent_dirV, '%(title)s.%(ext)s'),
+        'merge_output_format': 'mp4',
+    }
+
     try:
-        video = YouTube(url)
-        descarga = video.streams.get_highest_resolution().download(parent_dirV)
+        with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+            ydl.download([url])
         mensaje = "Descargado"
         logging.info("Descarga MP4 completada")
     except Exception as e:

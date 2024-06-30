@@ -48,6 +48,9 @@ Una vez que el servidor esté en funcionamiento, puedes enviar solicitudes POST 
 ### Descargar en MP3 o MP4
 ![alt text](image.png)
 
+###Descargar ffmpeg
+winget install "FFmpeg (Essentials Build)"
+
 ## Contribuciones
 
 Las contribuciones son bienvenidas. Si deseas mejorar este proyecto, por favor abre un problema o envía una solicitud de extracción.
